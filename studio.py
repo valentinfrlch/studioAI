@@ -1,7 +1,7 @@
 # create a slideshow from images and videos in a directory
 
 import os
-from moviepy.editor import VideoFileClip, ImageClip, concatenate_videoclips
+from moviepy.editor import VideoFileClip, ImageClip, AudioFileClip, concatenate_videoclips
 import modules
 import effects
 
@@ -32,6 +32,8 @@ def studio(file_path, audio_path):
     timeline.insert(0, effects.title("My Slideshow"))
     # render the timeline
     clip = concatenate_videoclips(timeline, method='compose')
+    # add audio to the clip
+    clip = clip.set_audio(AudioFileClip(audio_path))
     clip.write_videofile("slideshow.mp4")
 
 
