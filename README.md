@@ -13,6 +13,8 @@ pip install -r requirements.txt
 Download and install Image Magick from:
 https://imagemagick.org/script/download.php
 
+Install FFmpeg to `C:/ffmpeg/bin/ffmpeg.exe` and add to path
+
 ## Getting Started
 Run with:
 ```
