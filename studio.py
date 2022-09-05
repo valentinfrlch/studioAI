@@ -20,7 +20,6 @@ def studio(path):
     images.sort(key=lambda x: modules.get_metadata(x))
     print(len(images), len(videos))
     videos.sort(key=lambda x: modules.get_metadata(x))
-    
     timeline = []
     for image in images:
         timeline.append(ImageClip(image, duration=3))
@@ -32,4 +31,4 @@ def studio(path):
                          codec="libx264", audio_codec="aac")
 
 
-studio("C:\\Users\\valen\\Downloads\\Test")
+studio("C:/Users/valen/Downloads/Test")

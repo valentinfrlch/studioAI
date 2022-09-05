@@ -3,6 +3,7 @@ import imagehash
 from PIL import Image
 import os
 import subprocess
+import ffmpeg as ff
 
 
 def get_images(path):
@@ -39,7 +40,7 @@ def remove_duplicates(duplicates):
                 os.remove(image)
 
 
-#create a class to remove duplicates
+# create a class to remove duplicates
 class Duplicates:
     def __init__(self, path):
         self.path = path
@@ -50,28 +51,30 @@ class Duplicates:
         remove_duplicates(self.duplicates)
 
 
-#-----------------------------------------------
+# -----------------------------------------------
 # Metadata helper functions
-#-----------------------------------------------
+# -----------------------------------------------
 def get_metadata(path):
     # get when the image was taken
     time = os.path.getmtime(path)
     return time
 
-#-----------------------------------------------
+
+# -----------------------------------------------
 # File type helper functions
-#-----------------------------------------------
+# -----------------------------------------------
 # convert videos to .mp4
 
 
 def convert_videos(path):
     for file in os.listdir(path):
-        if not path.endswith(".mp4"):
-            #check if file is a video
-            if subprocess.run(["ffprobe", "-v", "error", "-show_entries",
-                            "format=duration", "-of", "default=noprint_wrappers=1:nokey=1",
-                            os.path.join(path, file)], stdout=subprocess.PIPE):
-                file_path = os.path.join(path, file)
-                subprocess.call(
-                    ["ffmpeg", "-i", file_path, file_path[:-4] + ".mp4"])
-                os.remove(file_path)
+        if file.endswith(".MOV"):
+            ori = os.path.join(path, file).replace("\\", "/")
+            new = os.path.join(path, file[:-4] + ".mp4").replace("\\", "/")
+
+            # convert video to .mp4 with python-ffmpeg
+            stream = ff.input(ori)
+            stream = ff.output(stream, new)
+            ff.run(stream)
+            # remove original video
+            os.remove(ori)
