@@ -3,6 +3,7 @@
 import os
 from moviepy.editor import VideoFileClip, ImageClip, concatenate_videoclips
 import modules
+import effects
 
 
 def studio(path):
@@ -24,6 +25,8 @@ def studio(path):
         timeline.append(ImageClip(image, duration=3))
     for video in videos:
         timeline.append(VideoFileClip(video))
+    # insert the title clip at the beginning of the timeline
+    timeline.insert(0, effects.title("My Slideshow"))
     # render the timeline
     clip = concatenate_videoclips(timeline, method='compose')
     clip.write_videofile("slideshow.mp4")
