@@ -10,3 +10,5 @@ Install the requirements with:
 ```
 pip install -r requirements.txt
 ```
+Download and install Image Magick from:
+https://imagemagick.org/script/download.php
