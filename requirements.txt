@@ -1,4 +1,5 @@
 imagehash
 Pillow
 moviepy
-python-ffmpeg
+librosa
+ffmpeg

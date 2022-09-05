@@ -1,9 +1,10 @@
 # look for images in directory and check for duplicates
+from sys import path_hooks
 import imagehash
 from PIL import Image
 import os
-import subprocess
 from moviepy.editor import VideoFileClip
+import librosa
 
 
 def get_images(path):
@@ -78,3 +79,22 @@ def convert_videos(path):
                                  codec="libx264", audio_codec="aac")
             # remove original video
             os.remove(ori)
+
+
+# -----------------------------------------------
+# Audio helper functions
+# -----------------------------------------------
+
+def analyze_audio(path):
+    # convert mp3 to wav
+    if not path.endswith(".wav"):
+        ori = path.replace("\\", "/")
+        path = path[:-4] + ".wav"
+        ffmpeg_path = "C:/ffmpeg/bin/ffmpeg.exe"
+        os.system(ffmpeg_path + ' -i "' + ori + '" "' + path + '"')
+    # use librosa to analyze audio
+    y, sr = librosa.load(path)
+    tempo, beats = librosa.beat.beat_track(y=y, sr=sr)
+    # convert BPM to seconds
+    tempo = 60 / tempo
+    return tempo, beats

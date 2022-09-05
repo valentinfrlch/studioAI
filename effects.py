@@ -7,6 +7,6 @@ def title(title, duration=3, color='white', fontsize=70, font='Amiri-Bold',):
     """
     Create a title clip
     """
-    clip = TextClip(title, fontsize=70, color='white')
-    clip.set_duration(duration)
+    clip = TextClip(title, fontsize=70, color=color,
+                    font=font).set_duration(duration)
     return clip
