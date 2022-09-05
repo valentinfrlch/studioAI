@@ -25,9 +25,8 @@ def studio(path):
     for video in videos:
         timeline.append(VideoFileClip(video))
     # render the timeline
-    clip = concatenate_videoclips(timeline)
-    clip.write_videofile("slideshow.mp4", fps=24,
-                         codec="libx264", audio_codec="aac")
+    clip = concatenate_videoclips(timeline, method='compose')
+    clip.write_videofile("slideshow.mp4")
 
 
 studio("C:/Users/valen/Downloads/Test")
