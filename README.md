@@ -6,6 +6,7 @@ Automatically create a simple video from images and videos in a folder.
 
 ## Getting Started
 Install the requirements with:
-'''
+
+```
 pip install -r requirements.txt
-'''
+```
