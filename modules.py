@@ -3,7 +3,7 @@ import imagehash
 from PIL import Image
 import os
 import subprocess
-import ffmpeg as ff
+from moviepy.editor import VideoFileClip
 
 
 def get_images(path):
@@ -72,9 +72,9 @@ def convert_videos(path):
             ori = os.path.join(path, file).replace("\\", "/")
             new = os.path.join(path, file[:-4] + ".mp4").replace("\\", "/")
 
-            # convert video to .mp4 with python-ffmpeg
-            stream = ff.input(ori)
-            stream = ff.output(stream, new)
-            ff.run(stream)
+            # convert video to .mp4 with moviepy
+            clip = VideoFileClip(ori)
+            clip.write_videofile(new, fps=24,
+                                 codec="libx264", audio_codec="aac")
             # remove original video
             os.remove(ori)

@@ -1,8 +1,8 @@
 # create a slideshow from images and videos in a directory
 
 import os
-import modules
 from moviepy.editor import VideoFileClip, ImageClip, concatenate_videoclips
+import modules
 
 
 def studio(path):
@@ -18,7 +18,6 @@ def studio(path):
             videos.append(os.path.join(path, file))
     # sort after time of creation
     images.sort(key=lambda x: modules.get_metadata(x))
-    print(len(images), len(videos))
     videos.sort(key=lambda x: modules.get_metadata(x))
     timeline = []
     for image in images:
